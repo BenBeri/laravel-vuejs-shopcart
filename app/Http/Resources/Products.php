@@ -18,7 +18,8 @@ class Products extends JsonResource
           'id' => $this->id,
           'title' => $this->title,
           'description' => $this->description,
-          'thumbnail_path' => $this->thumbnails['key']
+          'thumbnail_path' => !empty($this->thumbnails['key']) ?
+              asset("images/" . $this->thumbnails['key'] . ".jpg") : ""
         ];
     }
 }

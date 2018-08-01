@@ -9,4 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class ProductThumbnail extends Model
 {
     protected $primaryKey = 'id';
+
+    public function product() {
+        return $this->belongsTo("App\\Product");
+    }
 }

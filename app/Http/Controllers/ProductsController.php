@@ -11,6 +11,7 @@ class ProductsController extends Controller
 
     /**
      * Lists products based on the given skip
+     *
      * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -20,6 +21,6 @@ class ProductsController extends Controller
             $start = $request->get("start");
         }
        // return Products::collection(Product::skip($start)->take(6)->leftJoin("product_thumbnail", "products.id", "=", "product_thumbnail.id")->get());
-        return Products::collection((Product::with('thumbnails')->get()));
+        return Products::collection((Product::with('thumbnails')->skip($start)->take(6)->get()));
     }
 }
