@@ -15,8 +15,32 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('headernav', require('./components/headernav.vue'));
+Vue.component('products', require('./components/products.vue'));
+
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data () {
+        return {
+            cart: {
+                products: [],
+                count: 0
+            }
+        }
+    },
+    methods: {
+        setCart: function(resData) {
+            this.cart.products = resData.products;
+            this.cart.count = resData.count;
+        }
+    },
+    computed: {
+        cartItems: function () {
+            return this.cart.count + " Items"
+        }
+    },
+    mounted() {
+        axios.get("api/cart").then(response => (this.setCart(response.data)));
+    }
 });

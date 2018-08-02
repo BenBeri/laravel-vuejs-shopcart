@@ -19,7 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get("/products", 'ProductsController@list')->name("api.products");
+Route::post("/products/add", 'ProductsController@add')->name("api.products.add");
 
 Route::get("/cart", 'CartController@list')->name("api.cart");
+Route::get("/cart/count", 'CartController@count')->name("api.cart.count");
 Route::put("/cart/add", 'CartController@add')->name("api.cart.add");
 Route::delete("/cart/remove", 'CartController@remove')->name("api.cart.remove");

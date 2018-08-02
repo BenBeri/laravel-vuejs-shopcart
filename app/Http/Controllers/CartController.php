@@ -22,7 +22,13 @@ class CartController extends Controller
      * @return string
      */
     public function list(Request $request) {
-        return json_encode(["products" => $request->session()->get("cart")]);
+        $cart = $request->session()->get("cart");
+        return json_encode(
+            [
+                "products" => $request->session()->get("cart"),
+                "count" => $this->countProducts($cart)
+            ]
+        );
     }
 
     /**
@@ -97,6 +103,10 @@ class CartController extends Controller
         return $this->returnCartWithSuccess($request);
     }
 
+    public function count(Request $request) {
+        return json_encode(["prodcuts_count" => count($request->session()->get("cart"))]);
+    }
+
     /**
      * Sending a success with list of products
      *
@@ -104,11 +114,17 @@ class CartController extends Controller
      * @return string
      */
     private function returnCartWithSuccess(Request $request) {
+        $cart = $request->session()->get("cart");
         return json_encode(
             [
                 "status" => "success",
-                "products" => ["products" => $request->session()->get("cart")]
+                "products" => $cart,
+                "count" => $this->countProducts($cart)
             ]
         );
+    }
+
+    private function countProducts(array $cart) {
+        return count($cart);
     }
 }

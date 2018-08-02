@@ -23,4 +23,19 @@ class ProductsController extends Controller
        // return Products::collection(Product::skip($start)->take(6)->leftJoin("product_thumbnail", "products.id", "=", "product_thumbnail.id")->get());
         return Products::collection((Product::with('thumbnails')->skip($start)->take(6)->get()));
     }
+
+    public function add(Request $request) {
+
+
+        $name = $request->input("title");
+        $desc = $request->input("description");
+        $price = $request->input("price");
+        $thumbnail_id = $request->input("thumbnail_id");
+
+        // todo validate.... the input
+
+        Product::insert(
+          ["title" => $name, "description" => $desc, "price" => $price, "thumbnail_id" => $thumbnail_id]
+        );
+    }
 }
